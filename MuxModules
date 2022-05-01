@@ -1,0 +1,158 @@
+module test8_1mux(
+    );
+    logic s0,s1,s2,d,y;
+    function1 mul(d,s0,s1,s2,y);
+    initial begin 
+    d = 0; s0 = 0; s1 = 0; s2 = 0; #10;
+    d = 0; s0 = 0; s1 = 0; s2 = 1; #10;
+    d = 0; s0 = 0; s1 = 1; s2 = 0; #10;
+    d = 0; s0 = 0; s1 = 1; s2 = 1; #10;
+    d = 0; s0 = 1; s1 = 0; s2 = 0; #10;
+    d = 0; s0 = 1; s1 = 0; s2 = 1; #10;
+    d = 0; s0 = 1; s1 = 1; s2 = 0; #10;
+    d = 0; s0 = 1; s1 = 1; s2 = 1; #10;
+    
+    d = 1; s0 = 0; s1 = 0; s2 = 0; #10;
+    d = 1; s0 = 0; s1 = 0; s2 = 1; #10;
+    d = 1; s0 = 0; s1 = 1; s2 = 0; #10;
+    d = 1; s0 = 0; s1 = 1; s2 = 1; #10;
+    
+    d = 1; s0 = 1; s1 = 0; s2 = 0; #10;
+    d = 1; s0 = 1; s1 = 0; s2 = 1; #10;
+    d = 1; s0 = 1; s1 = 1; s2 = 0; #10;
+    d = 1; s0 = 1; s1 = 1; s2 = 1; #10;
+    
+    end
+    endmodule
+    
+    
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 01.11.2021 09:46:35
+// Design Name: 
+// Module Name: decoder2_4
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module decoder2_4(
+    input a0,
+    input a1,
+    output y0,
+    output y1,
+    output y2,
+    output y3
+    );
+    assign y0 = (~a0) & (~a1);
+    assign y1 = (~a0) & a1;
+    assign y2 = a0 & (~a1);
+    assign y3 = a0 & a1;
+endmodule
+
+ module testbench(
+ );
+    logic x0,x1,y0,y1,y2,y3;
+    decoder2_4 test(x0,x1,y0,y1,y2,y3);
+    
+    initial begin
+    x0 = 0; x1 = 1; #10;
+    x0 = 0; x1 = 0; #10;
+    x0 = 1; x1 = 0; #10;
+    x0 = 1; x1 = 1; #10;
+    end
+    endmodule
+
+module testbench8_1mux(
+    );
+    logic d0,d1,d2,d3,d4,d5,d6,d7,s0,s1,s2,y;
+    mux8_1structural mul(d0,d1,d2,d3,d4,d5,d6,d7,s0,s1,s2,y);
+    initial begin 
+    d0 = 0; d1 = 0; d2 = 0; d3 = 0; d4 =0 ; d5 = 0; d6 = 0; d7 = 0; s0 = 0; s1 = 0; s2 = 0; #10;
+    d0 = 0; d1 = 0; d2 = 0; d3 = 0; d4 =0 ; d5 = 0; d6 = 0; d7 = 0; s0 = 0; s1 = 0; s2 = 1; #10;
+    d0 = 0; d1 = 0; d2 = 0; d3 = 0; d4 =0 ; d5 = 0; d6 = 0; d7 = 0; s0 = 0; s1 = 1; s2 = 0; #10;
+    d0 = 0; d1 = 0; d2 = 0; d3 = 0; d4 =0 ; d5 = 0; d6 = 0; d7 = 0; s0 = 1; s1 = 0; s2 = 0; #10;
+    d0 = 0; d1 = 0; d2 = 0; d3 = 0; d4 =0 ; d5 = 0; d6 = 0; d7 = 1; s0 = 0; s1 = 0; s2 = 0; #10;
+    d0 = 1; d1 = 1; d2 = 0; d3 = 0; d4 =0 ; d5 = 0; d6 = 0; d7 = 0; s0 = 1; s1 = 1; s2 = 0; #10;
+    d0 = 0; d1 = 0; d2 = 0; d3 = 1; d4 =1 ; d5 = 0; d6 = 1; d7 = 0; s0 = 1; s1 = 0; s2 = 1; #10;
+    d0 = 1; d1 = 0; d2 = 1; d3 = 1; d4 =0 ; d5 = 1; d6 = 0; d7 = 1; s0 = 0; s1 = 1; s2 = 0; #10;
+    d0 = 1; d1 = 0; d2 = 0; d3 = 0; d4 =0 ; d5 = 0; d6 = 0; d7 = 1; s0 = 1; s1 = 0; s2 = 0; #10;
+    d0 = 0; d1 = 1; d2 = 1; d3 = 0; d4 =0 ; d5 = 0; d6 = 1; d7 = 0; s0 = 0; s1 = 1; s2 = 0; #10;
+    end
+    endmodule
+    
+
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 01.11.2021 05:08:14
+// Design Name: 
+// Module Name: mux8_1structural
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module mux8_1structural(
+    input d0,d1,d2,d3,dd4,d5,d6,d7,s0,s1,s2,
+    output y
+    );
+    logic mux1;
+    logic mux2;
+    
+    structural4_1mux mul1(d0,d1,d2,d3,s1,s2,mux1);
+    structural4_1mux mul2(d4,d5,d6,d7,s1,s2,mux2);
+    
+    logic and1;
+    logic and2;
+    
+    and(and1,mux1,~s2);
+    and(and1,mux2,s2);
+    or(y,and1,and2);
+endmodule
+
+
+
+module structural4_1mux(
+    input logic d0,d1,d2,d3,s0,s1,
+    output logic y
+    );
+    logic mux1;
+    logic mux2;
+    
+    behavioral2_1mux mul1(d0,d1,s1,mux1);
+    behavioral2_1mux mul2(d2,d3,s1,mux2);
+    behavioral2_1mux mul3(mux1,mux2,s0,y);
+endmodule
+
+module behavioral2_1mux(
+    input logic d0,
+    input logic d1,
+    input logic s,
+    output logic y
+    );
+    assign y = s ? d1 : d0;
+endmodule
