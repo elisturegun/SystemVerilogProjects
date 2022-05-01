@@ -1,0 +1,125 @@
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 11/29/2021 06:51:28 AM
+// Design Name: 
+// Module Name: traffic_lights
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+module t_lights ( input logic sA, sB, clk, reset, output logic [1:0]LA, [1:0]LB );
+
+typedef enum logic [2:0] {S0,S1,S2,S3,S4,S5,S6,S7} statetype; statetype current, next;
+
+parameter green = 2'b00; parameter yellow = 2'b01; parameter red = 2'b10;
+
+
+
+always_ff@(posedge clk, posedge reset) 
+if(reset) current <= S0;
+else current <= next;
+
+always_comb case(current)
+S0: if(sA) next = S0; 
+else next = S1;
+
+S1: next = S2; 
+S2: next = S3; 
+S3: next = S4;
+S4: if(sB) next = S4; 
+else next = S5;
+
+S5: next = S6; 
+S6: next = S7; 
+S7: next = S0;
+
+default: next = S0; 
+endcase
+
+always_comb case(current)
+S0:
+begin
+LA = green; 
+LB = red; 
+end
+S1:
+begin
+LA = yellow;
+LB = red;
+end S2:
+begin
+LA = red; 
+LB = red; 
+end
+S3:
+begin
+LA = red;
+LB = yellow; 
+end
+S4:
+begin
+LA = red; 
+LB = green; 
+end
+S5:
+begin
+LA = red;
+LB = yellow; 
+end
+S6:
+begin
+LA = yellow; 
+LB = red; 
+end
+S7:
+begin
+LA = green; 
+LB = red; 
+end
+endcase 
+endmodule
+
+
+
+module testbench (); logic [1:0] LA, LB;
+logic sA, sB,reset, clk;
+
+
+t_lights dut( sA, sB, clk, reset, LA, LB); initial
+begin
+reset = 1; #100;
+reset = 0;
+
+
+sA = 0; sB = 0; #100;
+sA = 0; sB = 1; #100;
+sA = 0; sB = 0; #100;
+sA = 1; sB = 0; #100;
+sA = 0; sB = 0; #100;
+sA = 1; sB = 1; #100;
+
+
+reset = 1;
+sA = 0; sB = 0; #100;
+sA = 0; sB = 1; #100;
+sA = 0; sB = 0; #100;
+sA = 1; sB = 0; #100;
+sA = 0; sB = 0; #100;
+sA = 1; sB = 1; #100;
+end always
+begin
+clk <= 1; #10;
+clk <= 0; #10;
+end endmodule
