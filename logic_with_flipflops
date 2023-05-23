@@ -101,5 +101,59 @@ module functional(shl_in,shr_in,p_in,p_out,clk,reset,s0,s1);
     D_flip_flop flp4(y3,Q[3],Qx[3],reset,clk);
     
 endmodule
+`timescale 1ns / 1ps
+//////////////////////////////////////////////////////////////////////////////////
+// Company: 
+// Engineer: 
+// 
+// Create Date: 22.11.2021 00:02:50
+// Design Name: 
+// Module Name: testbench
+// Project Name: 
+// Target Devices: 
+// Tool Versions: 
+// Description: 
+// 
+// Dependencies: 
+// 
+// Revision:
+// Revision 0.01 - File Created
+// Additional Comments:
+// 
+//////////////////////////////////////////////////////////////////////////////////
+
+
+module testbench();
+    reg s0,s1;
+    reg shl_in;
+    reg shr_in;
+    reg [3:0] p_in;
+    reg clk;
+    reg reset;
+    
+    
+    wire [3:0] p_out;
+    wire s;
+    
+    functional fnc1(.*);
+    
+    initial
+    begin
+    clk=0;reset=0;{s1,s0}=0;
+    
+    #2 reset=1;
+    #4 reset=0;p_in[3]=1'b1;p_in[2]=1'b0;p_in[1]=1'b1;p_in[0]=1'b0;shl_in=1;shr_in=1;{s1,s0}=0;
+    
+    #40 {s1,s0}=1;
+    #40 {s1,s0}=2;shl_in=0;shr_in=0;
+    
+    #40 {s1,s0}=3;p_in[3]=1'b1;p_in[2]=1'b0;p_in[1]=1'b1;p_in[0]=1'b0;
+ 
+    #20 $finish;
+    end
+    initial
+    forever
+    #2 clk=~clk;
+endmodule
 
 
